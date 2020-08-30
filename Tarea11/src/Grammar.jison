@@ -1,7 +1,4 @@
 %lex
-
-
-
 %%
 
 \s+                   {}
@@ -11,7 +8,6 @@
 "/"                   return '/'
 "-"                   return '-'
 "+"                   return '+'
-"^"                   return '^'
 "("                   return '('
 ")"                   return ')'
 <<EOF>>               return 'EOF'
@@ -22,6 +18,7 @@
 
 %start expressions
 %{
+    //Control para creacion de variables temporales
 	let temporales = 1;
 %}
 
@@ -44,7 +41,7 @@ e
            temp :  `t${temporales}`,
            c3d :   `${v1.c3d}\n` +  
                    `${v2.c3d}\n` +
-                   `t${temporales} = ${v1.temp} + ${v2.temp}\n`
+                   `t${temporales} = ${v1.temp} + ${v2.temp}`
         };
         temporales++;
     }
@@ -57,7 +54,7 @@ e
            temp :  `t${temporales}`,
            c3d :   `${v3.c3d}\n` + 
                    `${v4.c3d}\n` +
-                   `t${temporales} = ${v3.temp} - ${v4.temp}\n`
+                   `t${temporales} = ${v3.temp} - ${v4.temp}`
         };
         temporales++;
     }
@@ -77,7 +74,7 @@ t
            temp :  `t${temporales}`,
            c3d :   `${v5.c3d}\n`+  
                    `${v6.c3d}\n`+
-                   `t${temporales} = ${v5.temp} * ${v6.temp}\n`
+                   `t${temporales} = ${v5.temp} * ${v6.temp}`
         };
         temporales++;
     }    
@@ -90,7 +87,7 @@ t
            temp :  `t${temporales}`,
            c3d :   `${v7.c3d}\n` + 
                    `${v8.c3d}\n` +
-                   `t${temporales} = ${v7.temp} / ${v8.temp}\n`
+                   `t${temporales} = ${v7.temp} / ${v8.temp}`
         };
         temporales++;
     }
