@@ -30,10 +30,7 @@
 expressions
     : e EOF
         { 
-            let resultado = eval('$1');
-console.log(resultado.c3d);
-            return resultado.c3d;
-
+            console.log(eval('$1').c3d);
         }
     ;
 
@@ -45,9 +42,9 @@ e
 
         $$ ={
            temp :  `t${temporales}`,
-           c3d :   `${v1.c3d}  
-                    ${v2.c3d}
-                    t${temporales} = ${v1.temp} + ${v2.temp}`
+           c3d :   `${v1.c3d}\n` +  
+                   `${v2.c3d}\n` +
+                   `t${temporales} = ${v1.temp} + ${v2.temp}\n`
         };
         temporales++;
     }
@@ -58,9 +55,9 @@ e
 
         $$ ={
            temp :  `t${temporales}`,
-           c3d :   `${v3.c3d}  
-                    ${v4.c3d}
-                    t${temporales} = ${v3.temp} - ${v4.temp}`
+           c3d :   `${v3.c3d}\n` + 
+                   `${v4.c3d}\n` +
+                   `t${temporales} = ${v3.temp} - ${v4.temp}\n`
         };
         temporales++;
     }
@@ -78,9 +75,9 @@ t
 
         $$ ={
            temp :  `t${temporales}`,
-           c3d :   `${v1.c3d}  
-                    ${v2.c3d}
-                    t${temporales} = ${v1.temp} * ${v2.temp}`
+           c3d :   `${v5.c3d}\n`+  
+                   `${v6.c3d}\n`+
+                   `t${temporales} = ${v5.temp} * ${v6.temp}\n`
         };
         temporales++;
     }    
@@ -91,9 +88,9 @@ t
 
         $$ ={
            temp :  `t${temporales}`,
-           c3d :   `${v1.c3d}  
-                    ${v2.c3d}
-                    t${temporales} = ${v1.temp} / ${v2.temp}`
+           c3d :   `${v7.c3d}\n` + 
+                   `${v8.c3d}\n` +
+                   `t${temporales} = ${v7.temp} / ${v8.temp}\n`
         };
         temporales++;
     }
