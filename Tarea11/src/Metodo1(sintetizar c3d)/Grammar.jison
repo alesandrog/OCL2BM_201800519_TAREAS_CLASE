@@ -27,7 +27,7 @@
 expressions
     : e EOF
         { 
-            console.log(eval('$1').c3d);
+            return eval('$1').c3d;
         }
     ;
 
