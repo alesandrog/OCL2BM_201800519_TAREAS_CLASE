@@ -23,8 +23,7 @@
 
 %start expressions
 %{
-    //Control para creacion de variables temporales
-	let temporales = 1;
+
 %}
 
 %% 
@@ -40,15 +39,13 @@ e
     : e '+' t
     {
 
-    $$ = new Operacion( "+" , $1 , $3 , `t${temporales}`);
-    temporales++;
+    $$ = new Operacion( "+" , $1 , $3 );
     
     }
     | e '-' t    
     {
 
-    $$ = new Operacion( "-" , $1 , $3 , `t${temporales}`);
-    temporales++;
+    $$ = new Operacion( "-" , $1 , $3 );
     }
     | t
     {
@@ -60,14 +57,12 @@ t
     : t '*' f
     {
 
-    $$ = new Operacion( "*" , $1 , $3 , `t${temporales}`);
-    temporales++;
+    $$ = new Operacion( "*" , $1 , $3);
     }    
     | t '/' f    
     {
 
-    $$ = new Operacion( "/" , $1 , $3 , `t${temporales}`);
-    temporales++;
+    $$ = new Operacion( "/" , $1 , $3 );
     }
     | f 
     {
@@ -79,7 +74,7 @@ f
     : 'ID'
     {
 
-    $$ = new Operacion( "" , null, null , eval('$1')); 
+    $$ = new Operacion( eval('$1'), null, null ); 
     }
     | '(' e ')'
     {

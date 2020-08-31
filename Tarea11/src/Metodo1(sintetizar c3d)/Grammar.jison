@@ -19,7 +19,11 @@
 %start expressions
 %{
     //Control para creacion de variables temporales
-	let temporales = 1;
+	let temporales = 0;
+    let newTemp = () =>{
+        temporales++;
+        return `t${temporales}`;
+    }
 %}
 
 %% 
@@ -36,27 +40,25 @@ e
     {
         let v1 = eval('$1');
         let v2 = eval('$3');
-
+        let temporal = newTemp(); 
         $$ ={
-           temp :  `t${temporales}`,
+           temp :  temporal,
            c3d :   `${v1.c3d}\n` +  
                    `${v2.c3d}\n` +
-                   `t${temporales} = ${v1.temp} + ${v2.temp}`
+                   `${temporal} = ${v1.temp} + ${v2.temp}`
         };
-        temporales++;
     }
     | e '-' t    
     {
         let v3 = eval('$1');
         let v4 = eval('$3');
-
+        let temporal2 = newTemp();
         $$ ={
-           temp :  `t${temporales}`,
+           temp :  temporal2,
            c3d :   `${v3.c3d}\n` + 
                    `${v4.c3d}\n` +
-                   `t${temporales} = ${v3.temp} - ${v4.temp}`
+                   `${temporal2} = ${v3.temp} - ${v4.temp}`
         };
-        temporales++;
     }
     | t
     {
@@ -69,27 +71,25 @@ t
     {
         let v5 = eval('$1');
         let v6 = eval('$3');
-
+        let temporal3 = newTemp();
         $$ ={
-           temp :  `t${temporales}`,
+           temp :  temporal3,
            c3d :   `${v5.c3d}\n`+  
                    `${v6.c3d}\n`+
-                   `t${temporales} = ${v5.temp} * ${v6.temp}`
+                   `${temporal3} = ${v5.temp} * ${v6.temp}`
         };
-        temporales++;
     }    
     | t '/' f    
     {
         let v7 = eval('$1');
         let v8 = eval('$3');
-
+        let temporal4 = newTemp();
         $$ ={
-           temp :  `t${temporales}`,
+           temp :  temporal4,
            c3d :   `${v7.c3d}\n` + 
                    `${v8.c3d}\n` +
-                   `t${temporales} = ${v7.temp} / ${v8.temp}`
+                   `${temporal4} = ${v7.temp} / ${v8.temp}`
         };
-        temporales++;
     }
     | f 
     {
