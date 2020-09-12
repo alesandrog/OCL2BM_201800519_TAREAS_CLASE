@@ -1,5 +1,5 @@
 %{
-    const { Operacion } = require('./Operacion');
+    const { ExpresionAritmetica } = require('../Expresiones/ExpresionAritmetica');
 %}
 
 %lex
@@ -56,17 +56,17 @@ r
     | e '>=' e
     | e '<' e
     | e '>' e            
+    | e
 ;
 
 e
     : e '+' t
     {
-
-    
+        $$ = new ExpresionAritmetica( $2 , $1 , $3);    
     }
     | e '-' t    
     {
-
+        $$ = new ExpresionAritmetica( $2 , $1 , $3);
     }
     | t
     {
@@ -77,11 +77,11 @@ e
 t
     : t '*' f
     {
-
+        $$ = new ExpresionAritmetica( $2 , $1 , $3);
     }    
     | t '/' f    
     {
-
+        $$ = new ExpresionAritmetica( $2 , $1 , $3);
     }
     | f 
     {
@@ -92,7 +92,7 @@ t
 f
     : 'ID'
     {
-
+        $$ = new ExpresionAritmetica( $1 , null ,null);
     }
     | '(' e ')'
     {
